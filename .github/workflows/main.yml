@@ -31,6 +31,8 @@ jobs:
           HOSTNAME: ${{ secrets.HOST }}
         run: |
           for file in ${ALL_CHANGED_FILES}; do
+            pwd
+            ls -la
             curl --insecure --user $USERNAME:$PASSWORD -T $file ftp://$HOSTNAME/
             echo "$file was uploaded to the server!"
           done
