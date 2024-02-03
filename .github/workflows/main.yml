@@ -16,9 +16,9 @@ jobs:
           fetch-depth: 0
       - name: (CI) Dependencies update check
         run: |
-          old_hash=git log -2 --format="%H" | awk -F: 'NR==2 {print $1}'
+          old_hash= git log -2 --format="%H" | awk -F: 'NR==2 {print $1}'
           echo $old_hash
-          new_hash=git log -1 --format="%H"
+          new_hash= git log -1 --format="%H"
           echo $new_hash
-          changed_files=git diff --name-only 2f42e6e ba06e6a
+          changed_files= git diff --name-only 2f42e6e ba06e6a
           echo $changed_files
