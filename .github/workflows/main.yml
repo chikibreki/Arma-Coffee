@@ -1,20 +1,12 @@
 name: CI
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
 
 jobs:
-  # -------------------------------------------------------------
-  # Using GitHub's API is not supported for push events
-  # -------------------------------------------------------------
-  # 
-  # ----------------------------------------------------------------------------------------------
-  # Using local .git history
-  # ----------------------------------------------------------------------------------------------
-  # Event `push`: Compare the preceding remote commit -> to the current commit of the main branch 
-  # ----------------------------------------------------------------------------------------------
   changed_files:
     runs-on: ubuntu-latest  # windows-latest || macos-latest
     name: Test changed-files
