@@ -35,11 +35,11 @@ jobs:
           USERNAME: ${{ secrets.SSH_USER }}
           PASSWORD: ${{ secrets.PASSWORD }}
           HOSTNAME: ${{ secrets.HOST }}
-        run: |
-          for file in ${ALL_CHANGED_FILES}; do
-            root=$(pwd)
-            full_path="${root}/${file}"
-            echo $full_path
-            curl --insecure --user $USERNAME:$PASSWORD -T $full_path ftp://$HOSTNAME/
-            echo "$file was uploaded to the server!"
-          done
+        uses: bayssmekanique/action-simple-file-upload@v2
+        with:
+          user: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.PASSWORD }}
+          host: ${{ secrets.HOST }}
+          src: ${{ steps.changed-pbo-files.outputs.all_changed_files }}
+          dest: /
+
