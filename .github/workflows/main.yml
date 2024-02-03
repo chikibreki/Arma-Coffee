@@ -19,6 +19,7 @@ jobs:
         run: |
           ls -la Missions
           whoami
+          curl --version
 
       - name: Get changed files
         id: changed-pbo-files
