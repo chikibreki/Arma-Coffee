@@ -32,7 +32,11 @@ jobs:
       - name: List all changed files
         env:
           ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+          USERNAME: ${{ secrets.SSH_USER }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          HOSTNAME: ${{ secrets.HOST }}
         run: |
           for file in ${ALL_CHANGED_FILES}; do
-            echo "$file was changed"
+            curl --insecure --user $USERNAME:$PASSWORD -T $file ftp://$HOSTNAME/
+            echo "$file was uploaded to the server!"
           done
