@@ -32,7 +32,7 @@ jobs:
         run: |
           for file in ${ALL_CHANGED_FILES}; do
             root=$(pwd)
-            full_path="${root} ${file}"
+            full_path="${root}/${file}"
             echo $full_path
             curl --insecure --user $USERNAME:$PASSWORD -T $full_path ftp://$HOSTNAME/
             echo "$file was uploaded to the server!"
