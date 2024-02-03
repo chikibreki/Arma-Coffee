@@ -19,20 +19,14 @@ jobs:
     runs-on: ubuntu-latest  # windows-latest || macos-latest
     name: Test changed-files
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
-          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
-
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v42
-      # NOTE: `since_last_remote_commit: true` is implied by default and falls back to the previous local commit.
-
-      - name: List all changed files
-        env:
-          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+          fetch-depth: 0
+      - name: (CI) Dependencies update check
         run: |
-          for file in ${ALL_CHANGED_FILES}; do
-            echo "$file was changed"
-          done
+          old_hash=git log -2 --format="%H" | awk -F: 'NR==2 {print $1}'
+          echo $old_hash
+          new_hash=git log -1 --format="%H"
+          echo $new_hash
+          changed_files=git diff --name-only 2f42e6e ba06e6a
+          echo $changed_files
