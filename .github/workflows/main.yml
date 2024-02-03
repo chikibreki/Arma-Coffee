@@ -18,6 +18,7 @@ jobs:
       - name: debug
         run: |
           ls -la Missions
+          whoami
 
       - name: Get changed files
         id: changed-pbo-files
