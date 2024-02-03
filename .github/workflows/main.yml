@@ -15,20 +15,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: debug
-        run: |
-          ls -la Missions
-          whoami
-          curl --version
-
-      - name: Get changed files
+      - name: Get changed pbo files
         id: changed-pbo-files
         uses: tj-actions/changed-files@v42
         with:
           files: |
              **.pbo
 
-      - name: List all changed files
+      - name: Upload all changed files to server
         if: steps.changed-pbo-files.outputs.any_changed == 'true'
         env:
           ALL_CHANGED_FILES: ${{ steps.changed-pbo-files.outputs.all_changed_files }}
